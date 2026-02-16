@@ -39,6 +39,7 @@ df_beschrijving_maatregelen = pd.read_csv("input/beschrijving_maatregelen.csv")
 zones = ("A", "B", "C", "D", "E")
 
 df_stock.set_index(["naam", "jaar", "zone"], inplace=True)
+df_stock = df_stock.sort_index()
 # df_flow.set_index(["naam", "zone"], inplace=True)
 
 df_flow = df_flow.set_index(["naam", "zone"], verify_integrity=True).sort_index()
