@@ -1,5 +1,27 @@
 import pandas as pd
 import streamlit as st
+import os
+
+# ---- CONFIG ----
+ACCESS_CODE = os.getenv("ACCESS_CODE", "code")  
+# Better to set via environment variable on your host
+
+# ---- AUTH ----
+def check_password():
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        password = st.text_input("Enter access code", type="password")
+        if password:
+            if password == ACCESS_CODE:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect code")
+        st.stop()
+
+check_password()
 
 from util.helpers import (
     get_hinder_punten,
